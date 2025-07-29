@@ -1,8 +1,39 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Internship.Api", "src\Infotecs.Internship.Api\Infotecs.Internship.Api.csproj", "{69D6A989-D133-4209-B816-B4D0CD6F9764}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8A0ED296-4010-4282-8613-859ACCB4DB24}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Internship.Domain", "src\Infotecs.Internship.Domain\Infotecs.Internship.Domain.csproj", "{EFB454E0-ED9D-4F39-9201-22044CFC5E61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Internship.Application", "src\Infotecs.Internship.Application\Infotecs.Internship.Application.csproj", "{79E2BE44-CEFE-4D20-AA12-A95C78F71727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Internship.Infrastructure", "src\Infotecs.Internship.Infrastructure\Infotecs.Internship.Infrastructure.csproj", "{28021887-1342-4ED6-9307-42C33F11D34F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69D6A989-D133-4209-B816-B4D0CD6F9764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D6A989-D133-4209-B816-B4D0CD6F9764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D6A989-D133-4209-B816-B4D0CD6F9764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D6A989-D133-4209-B816-B4D0CD6F9764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFB454E0-ED9D-4F39-9201-22044CFC5E61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB454E0-ED9D-4F39-9201-22044CFC5E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFB454E0-ED9D-4F39-9201-22044CFC5E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFB454E0-ED9D-4F39-9201-22044CFC5E61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E2BE44-CEFE-4D20-AA12-A95C78F71727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E2BE44-CEFE-4D20-AA12-A95C78F71727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E2BE44-CEFE-4D20-AA12-A95C78F71727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E2BE44-CEFE-4D20-AA12-A95C78F71727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28021887-1342-4ED6-9307-42C33F11D34F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28021887-1342-4ED6-9307-42C33F11D34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28021887-1342-4ED6-9307-42C33F11D34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28021887-1342-4ED6-9307-42C33F11D34F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

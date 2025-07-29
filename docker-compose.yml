@@ -1,0 +1,6 @@
+﻿services:
+  infotecs.internship.api:
+    image: infotecs.internship.api
+    build:
+      context: .
+      dockerfile: src/Infotecs.Internship.Api/Dockerfile
