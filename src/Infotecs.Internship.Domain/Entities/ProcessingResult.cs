@@ -1,6 +1,6 @@
 namespace Infotecs.Internship.Domain.Entities;
 
-public record ProcessingResult
+public class ProcessingResult
 {
     public long Id { get; private set; }
     public required long DateDeltaSeconds { get; set; }
