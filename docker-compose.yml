@@ -1,6 +1,22 @@
-﻿services:
+﻿volumes:
+  pgdata:
+
+services:
   infotecs.internship.api:
     image: infotecs.internship.api
     build:
       context: .
       dockerfile: src/Infotecs.Internship.Api/Dockerfile
+      
+  infotecs.internship.db:
+    image: postgres:17.5-alpine
+    container_name: infotecs.internship.db
+    environment:
+      POSTGRES_DB: infotecs.internship.db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped

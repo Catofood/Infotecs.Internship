@@ -9,12 +9,23 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infotecs.Internship.Application\Infotecs.Internship.Application.csproj" />
+      <ProjectReference Include="..\Infotecs.Internship.Domain\Infotecs.Internship.Domain.csproj" />
+      <ProjectReference Include="..\Infotecs.Internship.Infrastructure\Infotecs.Internship.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
