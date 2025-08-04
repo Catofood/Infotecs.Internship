@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infotecs.Internship.Infrastructure.Configurations;
 
-public class ProcessingValueConfiguration : IEntityTypeConfiguration<ProcessingValue>
+public class ProcessingValueConfiguration : IEntityTypeConfiguration<OperationValue>
 {
-    public void Configure(EntityTypeBuilder<ProcessingValue> builder)
+    public void Configure(EntityTypeBuilder<OperationValue> builder)
     {
         builder.ToTable("values");
         

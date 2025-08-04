@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infotecs.Internship.Infrastructure.Configurations;
 
-public class ProcessingResultConfiguration : IEntityTypeConfiguration<ProcessingResult>
+public class ProcessingResultConfiguration : IEntityTypeConfiguration<OperationsResult>
 {
-    public void Configure(EntityTypeBuilder<ProcessingResult> builder)
+    public void Configure(EntityTypeBuilder<OperationsResult> builder)
     {
         builder.ToTable("results");
         
@@ -20,7 +20,7 @@ public class ProcessingResultConfiguration : IEntityTypeConfiguration<Processing
             .IsRequired();
         builder.HasOne(x => x.ParentFile)
             .WithOne(x => x.Result)
-            .HasForeignKey<ProcessingResult>(x => x.ParentFileId)
+            .HasForeignKey<OperationsResult>(x => x.ParentFileId)
             .OnDelete(DeleteBehavior.Cascade);
         
         builder.Property(x => x.DateDeltaSeconds)
@@ -30,14 +30,17 @@ public class ProcessingResultConfiguration : IEntityTypeConfiguration<Processing
         builder.Property(x => x.EarliestStartDate)
             .HasColumnName("earliest_start_date")
             .IsRequired();
+        builder.HasIndex(x => x.EarliestStartDate);  // Для опционального фильтра поиска
         
         builder.Property(x => x.AverageDurationTimeSeconds)
             .HasColumnName("avg_execution_duration_seconds")
             .IsRequired();
+        builder.HasIndex(x => x.AverageDurationTimeSeconds);  // Для опционального фильтра поиска
         
         builder.Property(x => x.AverageValue)
             .HasColumnName("avg_value")
             .IsRequired();
+        builder.HasIndex(x => x.AverageValue); // Для опционального фильтра поиска
         
         builder.Property(x => x.MedianValue)
             .HasColumnName("median_value")

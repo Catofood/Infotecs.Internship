@@ -1,6 +1,10 @@
 using System.Reflection;
 using FluentValidation;
 using Infotecs.Internship.Application.Behaviors;
+using Infotecs.Internship.Application.Options;
+using Infotecs.Internship.Application.Services;
+using Infotecs.Internship.Application.Services.Csv;
+using Infotecs.Internship.Application.Services.OperationsResultFactory;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,11 +18,13 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         var thisAssembly = Assembly.GetExecutingAssembly();
-        
+
+        services.Configure<ValidationOptions>(configuration.GetSection(ValidationOptions.ConfigurationSectionName));
+        services.AddTransient<IOperationsResultFactory, OperationsResultFactory>();
+        services.AddScoped<IOperationsFileCsvService, OperationsFileCsvService>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(thisAssembly));
         services.AddValidatorsFromAssembly(thisAssembly);
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        // services.AddAutoMapper(cfg => cfg.AddMaps(thisAssembly));
         return services;
     }
 }

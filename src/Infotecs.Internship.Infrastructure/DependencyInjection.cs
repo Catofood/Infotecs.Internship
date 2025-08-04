@@ -1,3 +1,6 @@
+using Infotecs.Internship.Application.Contracts;
+using Infotecs.Internship.Infrastructure.Services;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +13,9 @@ public static class DependencyInjection
         this IServiceCollection services, 
         IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(options => 
+        services.AddScoped<IFileRepository, FileRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddDbContext<OperationsFileDbContext>(options => 
             options.UseNpgsql(configuration.GetConnectionString("Postgres")));
         return services;
     }
