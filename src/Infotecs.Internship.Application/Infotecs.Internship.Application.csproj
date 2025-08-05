@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="15.0.1" />
       <PackageReference Include="CsvHelper" Version="33.1.0" />
       <PackageReference Include="FluentValidation" Version="12.0.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
@@ -19,10 +20,7 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.7" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.7" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Exceptions\" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
 </Project>

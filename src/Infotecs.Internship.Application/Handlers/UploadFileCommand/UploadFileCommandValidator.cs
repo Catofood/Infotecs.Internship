@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Infotecs.Internship.Application.Handlers.UploadFile;
+namespace Infotecs.Internship.Application.Handlers.UploadFileCommand;
 
 public class UploadFileCommandValidator : AbstractValidator<UploadFileCommand>
 {

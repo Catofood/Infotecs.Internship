@@ -1,5 +1,10 @@
-using Infotecs.Internship.Api.Controllers.Dto;
-using Infotecs.Internship.Application.Handlers.UploadFile;
+using AutoMapper;
+using Infotecs.Internship.Api.Dto;
+using Infotecs.Internship.Application.Handlers.GetResultsQuery;
+using Infotecs.Internship.Application.Handlers.GetValuesQuery;
+using Infotecs.Internship.Application.Handlers.UploadFileCommand;
+using Infotecs.Internship.Application.Pagination;
+using Infotecs.Internship.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,21 +14,20 @@ namespace Infotecs.Internship.Api.Controllers;
 [Route("api/[controller]")]
 public class OperationsController : ControllerBase
 {
-
-    private readonly ILogger<OperationsController> _logger;
     private readonly IMediator _mediator;
+    private readonly IMapper _mapper;
 
-    public OperationsController(ILogger<OperationsController> logger, IMediator mediator)
+    public OperationsController(IMediator mediator, IMapper mapper)
     {
-        _logger = logger;
         _mediator = mediator;
+        _mapper = mapper;
     }
 
     [HttpPost("files")]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> UploadFile([FromForm] UploadFileRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> UploadFile([FromForm] FileFormDto formDto, CancellationToken cancellationToken)
     {
-        var file = request.File;
+        var file = formDto.File;
         var command = new UploadFileCommand()
         {
             FileName = file.FileName,
@@ -34,14 +38,19 @@ public class OperationsController : ControllerBase
     }
 
     [HttpGet("results")]
-    public async Task<ActionResult> GetResults(CancellationToken cancellationToken)
+    //TODO: Решить проблему невозврата данных о странице на клиент
+    public async Task<ActionResult<PaginatedList<OperationsResultWithFileNameDto>?>> GetResults([FromQuery] GetResultsQuery query, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var pagedResults = await _mediator.Send(query, cancellationToken);
+        var pagedDto = _mapper.Map<PaginatedList<OperationsResultWithFileNameDto>>(pagedResults);
+        return Ok(pagedDto);
     }
 
     [HttpGet("values")]
-    public async Task<ActionResult> GetValues(CancellationToken cancellationToken)
+    public async Task<ActionResult<PaginatedList<OperationValuesWithFileNameDto>>> GetValues([FromQuery] GetValuesQuery query, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var pagedValues = await _mediator.Send(query, cancellationToken);
+        var pagedDto = _mapper.Map<PaginatedList<OperationValuesWithFileNameDto>>(pagedValues);
+        return Ok(pagedDto);
     }
 }

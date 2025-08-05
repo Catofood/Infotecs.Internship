@@ -3,13 +3,16 @@ namespace Infotecs.Internship.Application.Options;
 public class ValidationOptions
 {
     public const string ConfigurationSectionName = "ValidationOptions";
-    public DateTimeOffset MinStartDateTimeInclusive { get; set; }
-    public bool UseCurrentTimeAsMaxStartDateTimeInclusive { get; set; }
-    public int MinExecutionDurationSecondsExclusive { get; set; }
-    public double MinValueExclusive { get; set; }
-    public int MinCsvContentLinesCountInclusive { get; set; }
-    public int MaxCsvContentLinesCountInclusive { get; set; }
-    
+    public DateTimeOffset MinStartDateTimeInclusive { get; init; }
+    public bool UseCurrentTimeAsMaxStartDateTimeInclusive { get; init; }
+    public int MinExecutionDurationSecondsExclusive { get; init; }
+    public double MinValueExclusive { get; init; }
+    public int MinCsvContentLinesCountInclusive { get; init; }
+    public int MaxCsvContentLinesCountInclusive { get; init; }
+
+    public int MaxPageSize { get; init; }
+    public int MinPageSize { get; init; }
+
 }
 // "ValidationOptions": {
 //     "MinStartDateTimeInclusive": "2024-01-01T00:00:00Z",

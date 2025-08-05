@@ -3,10 +3,9 @@ using Infotecs.Internship.Application.Contracts;
 using Infotecs.Internship.Application.Services.Csv;
 using Infotecs.Internship.Application.Services.OperationsResultFactory;
 using Infotecs.Internship.Domain.Entities;
-using LinqStatistics;
 using MediatR;
 
-namespace Infotecs.Internship.Application.Handlers.UploadFile;
+namespace Infotecs.Internship.Application.Handlers.UploadFileCommand;
 
 public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand>
 {

@@ -6,9 +6,9 @@ namespace Infotecs.Internship.Infrastructure;
 
 public class OperationsFileDbContext(DbContextOptions<OperationsFileDbContext> options) : DbContext(options)
 {
-    public DbSet<OperationsFile> ProcessingFiles { get; set; }
-    public DbSet<OperationsResult> ProcessingResults { get; set; }
-    public DbSet<OperationValue> ProcessingValues { get; set; }
+    public DbSet<OperationsFile> OperationsFiles { get; set; }
+    public DbSet<OperationsResult> OperationsResults { get; set; }
+    public DbSet<OperationValue> OperationValues { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -21,7 +21,7 @@ public class ExceptionHandlingMiddleware
         {
             await _next(httpContext);
         }
-        catch (Exception ex) when (ex is ValidationException || ex is CsvHelperException)
+        catch (Exception ex) when (ex is ValidationException or CsvHelperException or ArgumentOutOfRangeException or InvalidOperationException)
         {
             _logger.LogWarning(ex, "Handled application exception");
             httpContext.Response.ContentType = "application/json";

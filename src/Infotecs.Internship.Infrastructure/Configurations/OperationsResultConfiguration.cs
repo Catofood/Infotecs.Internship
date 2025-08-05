@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infotecs.Internship.Infrastructure.Configurations;
 
-public class ProcessingResultConfiguration : IEntityTypeConfiguration<OperationsResult>
+public class OperationsResultConfiguration : IEntityTypeConfiguration<OperationsResult>
 {
     public void Configure(EntityTypeBuilder<OperationsResult> builder)
     {
