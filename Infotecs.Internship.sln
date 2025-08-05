@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Internship.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Internship.Infrastructure", "src\Infotecs.Internship.Infrastructure\Infotecs.Internship.Infrastructure.csproj", "{28021887-1342-4ED6-9307-42C33F11D34F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{9AF24921-13BB-48F2-865E-9512F8F67A4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +37,9 @@ Global
 		{28021887-1342-4ED6-9307-42C33F11D34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28021887-1342-4ED6-9307-42C33F11D34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28021887-1342-4ED6-9307-42C33F11D34F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF24921-13BB-48F2-865E-9512F8F67A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF24921-13BB-48F2-865E-9512F8F67A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF24921-13BB-48F2-865E-9512F8F67A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF24921-13BB-48F2-865E-9512F8F67A4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
