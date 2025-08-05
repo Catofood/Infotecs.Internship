@@ -38,7 +38,6 @@ public class OperationsController : ControllerBase
     }
 
     [HttpGet("results")]
-    //TODO: Решить проблему невозврата данных о странице на клиент
     public async Task<ActionResult<PaginatedList<OperationsResultWithFileNameDto>?>> GetResults([FromQuery] GetResultsQuery query, CancellationToken cancellationToken)
     {
         var pagedResults = await _mediator.Send(query, cancellationToken);
