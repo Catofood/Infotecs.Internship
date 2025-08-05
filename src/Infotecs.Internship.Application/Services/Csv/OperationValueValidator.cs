@@ -14,10 +14,14 @@ public class OperationValueValidator : AbstractValidator<OperationValue>
             .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo(options.MinStartDateTimeInclusive);
-        When(_ => options.UseCurrentTimeAsMaxStartDateTimeInclusive, () =>
+        When(_ => options.MaxStartDateTimeInclusive.HasValue, () =>
         {
             RuleFor(x => x.StartedAt)
-                .LessThanOrEqualTo(DateTimeOffset.UtcNow);
+                .LessThanOrEqualTo(_ => options.MaxStartDateTimeInclusive!.Value);
+        }).Otherwise(() =>
+        {
+            RuleFor(x => x.StartedAt)
+                .LessThanOrEqualTo(_ => DateTimeOffset.UtcNow);
         });
         
         RuleFor(x => x.ExecutionDurationSeconds)
