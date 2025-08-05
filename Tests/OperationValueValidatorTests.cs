@@ -10,6 +10,7 @@ namespace Tests;
 public class OperationValueValidatorTests
 {
     private readonly OperationValueValidator _validator;
+
     private readonly ValidationOptions _validationOptions;
 
     public OperationValueValidatorTests()
@@ -26,103 +27,133 @@ public class OperationValueValidatorTests
         _validator = new OperationValueValidator(optionsSnapshotMock.Object);
         _validationOptions = optionsSnapshotMock.Object.Value;
     }
-    
+
     [Fact]
     public void StartedAt_ShouldBeMoreThanOrEqualTo_MinStartDateTimeInclusive()
     {
-        var badEntity = new OperationValue()
+        var entityOutOfBoundary = new OperationValue()
         {
             ExecutionDurationSeconds = 1,
             StartedAt = _validationOptions.MinStartDateTimeInclusive.AddSeconds(-1),
             Value = 1,
         };
-        
-        var okEntity1 = new OperationValue()
+        var resultOutOfBoundary = _validator.TestValidate(entityOutOfBoundary);
+        resultOutOfBoundary.ShouldHaveValidationErrorFor(x => x.StartedAt);
+
+        var entityBoundary = new OperationValue()
         {
             ExecutionDurationSeconds = 1,
             StartedAt = _validationOptions.MinStartDateTimeInclusive,
             Value = 1,
         };
-        
-        var okEntity2 = new OperationValue()
+        var resultBoundary = _validator.TestValidate(entityBoundary);
+        resultBoundary.ShouldNotHaveValidationErrorFor(x => x.StartedAt);
+
+        var entityInsideBoundaries = new OperationValue()
         {
             ExecutionDurationSeconds = 1,
             StartedAt = _validationOptions.MinStartDateTimeInclusive.AddSeconds(1),
             Value = 1,
         };
-
-        
-        var badResult = _validator.TestValidate(badEntity);
-        badResult.ShouldHaveValidationErrorFor(x => x.StartedAt);
-        
-        var okResult1 = _validator.TestValidate(okEntity1);
-        okResult1.ShouldNotHaveValidationErrorFor(x => x.StartedAt);
-        
-        var okResult2 = _validator.TestValidate(okEntity2);
-        okResult2.ShouldNotHaveValidationErrorFor(x => x.StartedAt);
+        var resultInsideBoundaries = _validator.TestValidate(entityInsideBoundaries);
+        resultInsideBoundaries.ShouldNotHaveValidationErrorFor(x => x.StartedAt);
     }
-    
+
     [Fact]
     public void StartedAt_ShouldBeLessThanOrEqualTo_MaxStartDateTimeInclusive()
     {
         var maxStartDateTimeInclusive = _validationOptions.MaxStartDateTimeInclusive ?? DateTimeOffset.UtcNow;
-        var badEntity = new OperationValue()
+        var entityOutOfBoundaries = new OperationValue()
         {
             ExecutionDurationSeconds = 1,
             StartedAt = maxStartDateTimeInclusive.AddSeconds(1),
             Value = 1,
         };
-        var result = _validator.TestValidate(badEntity);
-        result.ShouldHaveValidationErrorFor(x => x.StartedAt);
+        var resultOutOfBoundaries = _validator.TestValidate(entityOutOfBoundaries);
+        resultOutOfBoundaries.ShouldHaveValidationErrorFor(x => x.StartedAt);
         
-        var okEntity1 = new OperationValue()
+        var entityBoundary = new OperationValue()
         {
             ExecutionDurationSeconds = 1,
-            StartedAt = maxStartDateTimeInclusive.AddMilliseconds(1),
+            StartedAt = maxStartDateTimeInclusive.AddSeconds(0),
             Value = 1,
         };
-        var okResult1 = _validator.TestValidate(okEntity1);
-        okResult1.ShouldNotHaveValidationErrorFor(x => x.StartedAt);
+        var resultBoundary = _validator.TestValidate(entityBoundary);
+        resultBoundary.ShouldNotHaveValidationErrorFor(x => x.StartedAt);
         
-        var okEntity2 = new OperationValue()
+        var entityInsideBoundaries = new OperationValue()
         {
             ExecutionDurationSeconds = 1,
-            StartedAt = maxStartDateTimeInclusive.AddMilliseconds(1),
+            StartedAt = maxStartDateTimeInclusive.AddSeconds(-1),
             Value = 1,
         };
-        var okResult2 = _validator.TestValidate(okEntity2);
-        okResult2.ShouldNotHaveValidationErrorFor(x => x.StartedAt);
+        var resultInsideBoundaries = _validator.TestValidate(entityInsideBoundaries);
+        resultInsideBoundaries.ShouldNotHaveValidationErrorFor(x => x.StartedAt);
     }
 
     [Fact]
     public void Value_ShouldBeGreaterThanOrEqualTo_MinValueInclusive()
     {
-        var entity = new OperationValue()
+        var minValueInclusive = _validationOptions.MinValueInclusive;
+        // TODO: Использовать переменную
+        var entityOutOfBoundary = new OperationValue()
         {
             ExecutionDurationSeconds = 1,
             StartedAt = DateTimeOffset.UtcNow.AddHours(-1),
-            Value = -double.Epsilon,
+            Value = -double.Epsilon+minValueInclusive,
         };
-        
-        var result = _validator.TestValidate(entity);
-        result.ShouldHaveValidationErrorFor(x => x.Value);
-    }
-    // TODO: Улучшить тесты
-    [Fact]
-    public void Should_Have_Error_When_ExecutionDuration_Is_Less_Than_Zero()
-    {
-        // Arrange
-        var entity = new OperationValue()
+        var resultOutOfBoundary = _validator.TestValidate(entityOutOfBoundary);
+        resultOutOfBoundary.ShouldHaveValidationErrorFor(x => x.Value);
+
+        var entityBoundary = new OperationValue()
         {
-            ExecutionDurationSeconds = -1,
+            ExecutionDurationSeconds = 1,
+            StartedAt = DateTimeOffset.UtcNow.AddHours(-1),
+            Value = minValueInclusive,
+        };
+        var resultBoundary = _validator.TestValidate(entityBoundary);
+        resultBoundary.ShouldNotHaveValidationErrorFor(x => x.Value);
+        
+        var entityInsideBoundaries = new OperationValue()
+        {
+            ExecutionDurationSeconds = 1,
+            StartedAt = DateTimeOffset.UtcNow.AddHours(-1),
+            Value = double.Epsilon+minValueInclusive,
+        };
+        var resultInsideBoundaries = _validator.TestValidate(entityInsideBoundaries);
+        resultInsideBoundaries.ShouldNotHaveValidationErrorFor(x => x.Value);
+    }
+    
+    [Fact]
+    public void ExecutionDuration_ShouldBeGreaterThanOrEqualTo_MinExecutionDurationSecondsInclusive()
+    {
+        var minExecutionDurationSecondsInclusive = _validationOptions.MinExecutionDurationSecondsInclusive;
+        // Arrange
+        var entityOutOfBoundary = new OperationValue()
+        {
+            ExecutionDurationSeconds = minExecutionDurationSecondsInclusive-1,
             StartedAt = DateTimeOffset.UtcNow.AddHours(-1),
             Value = 1,
         };
+        var resultOutOfBoundary = _validator.TestValidate(entityOutOfBoundary);
+        resultOutOfBoundary.ShouldHaveValidationErrorFor(x => x.ExecutionDurationSeconds);
         
-        // Act
-        var result = _validator.TestValidate(entity);
+        var entityBoundary = new OperationValue()
+        {
+            ExecutionDurationSeconds = minExecutionDurationSecondsInclusive,
+            StartedAt = DateTimeOffset.UtcNow.AddHours(-1),
+            Value = 1,
+        };
+        var resultBoundary = _validator.TestValidate(entityBoundary);
+        resultBoundary.ShouldNotHaveValidationErrorFor(x => x.ExecutionDurationSeconds);
         
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.ExecutionDurationSeconds);
+        var entityInsideBoundaries = new OperationValue()
+        {
+            ExecutionDurationSeconds = minExecutionDurationSecondsInclusive+1,
+            StartedAt = DateTimeOffset.UtcNow.AddHours(-1),
+            Value = 1,
+        };
+        var resultInsideBoundaries = _validator.TestValidate(entityInsideBoundaries);
+        resultInsideBoundaries.ShouldNotHaveValidationErrorFor(x => x.ExecutionDurationSeconds);
     }
 }
