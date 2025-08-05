@@ -22,9 +22,9 @@ public class OperationValueValidator : AbstractValidator<OperationValue>
         
         RuleFor(x => x.ExecutionDurationSeconds)
             .NotNull()
-            .GreaterThan(options.MinExecutionDurationSecondsExclusive);
+            .GreaterThanOrEqualTo(options.MinExecutionDurationSecondsExclusive);
         RuleFor(x => x.Value)
             .NotNull()
-            .GreaterThan(options.MinValueExclusive);
+            .GreaterThanOrEqualTo(options.MinValueExclusive);
     }
 }
