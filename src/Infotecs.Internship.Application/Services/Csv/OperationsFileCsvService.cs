@@ -2,6 +2,7 @@ using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
 using FluentValidation;
+using FluentValidation.Results;
 using Infotecs.Internship.Application.Options;
 using Infotecs.Internship.Domain.Entities;
 using Microsoft.Extensions.Options;
